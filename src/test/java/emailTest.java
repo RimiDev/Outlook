@@ -25,12 +25,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * This is a demo of the code necessary to carry out the following tasks: 1)
- * Send plain text email 2) Receive email including attachments 3) Send html
- * email with an embedded image and an attachment
- *
- * @author Ken
- * @version 2.0
+ * This is to test the sendEmail in the SMTPemail java class to see if it
+ * will send the correct email with the correct appointment.
+ * @author Maxime Lacasse
+ * @version 1.2
  *
  */
 
