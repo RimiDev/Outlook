@@ -34,6 +34,8 @@ public interface iAgendaDAO {
     public List<Email> findAllEmails() throws SQLException;
 
     public Email findEmail(String name) throws SQLException;
+    
+    public Email findEmailByDefault(Boolean isDefault) throws SQLException;
 
     public List<Appointment> findAllAppointments() throws SQLException;
 
@@ -41,7 +43,9 @@ public interface iAgendaDAO {
 
     public Appointment findAppointmentbyTitle(String title) throws SQLException;
 
-    public Appointment findAppointmentByStartTime(Timestamp starttime) throws SQLException;
+    public List<Appointment> findAppointmentByStartTime(Timestamp starttime) throws SQLException;
+    
+    public List<Appointment> findAppointmentsFromStartBetween5Mins(Timestamp starttime) throws SQLException;
 
     public Appointment findAppointmentByEndTime(Timestamp endtime) throws SQLException;
     

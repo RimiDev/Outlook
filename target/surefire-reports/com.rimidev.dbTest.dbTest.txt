@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.rimidev.dbTest.dbTest
 -------------------------------------------------------------------------------
-Tests run: 31, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.66 s - in com.rimidev.dbTest.dbTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.853 s - in com.rimidev.dbTest.dbTest

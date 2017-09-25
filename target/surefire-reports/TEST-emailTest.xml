@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="emailTest" time="2.467" tests="1" errors="1" skipped="0" failures="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\bin"/>
+    <property name="java.vm.version" value="25.144-b01"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="test" value="emailTest#testSendEmail"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="I:\Jam1.3\JAM_1537681_1.2"/>
+    <property name="java.runtime.version" value="1.8.0_144-b01"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Temp\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="maven.ext.class.path" value="C:\dev\NetBeans8.2\java\maven-nblib\netbeans-eventspy.jar"/>
+    <property name="classworlds.conf" value="C:\dev\NetBeans8.2\java\maven\bin\m2.conf"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_144\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\app\HomeUser12c\product\12.1.0\client_1\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Brackets\command;C:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Utilities 1.6\;C:\HashiCorp\Vagrant\bin;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps;C:\Users\Administrator\AppData\Local\atom\bin;."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.0"/>
+    <property name="user.home" value="C:\Users\1537681"/>
+    <property name="user.timezone" value="America/New_York"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="1537681"/>
+    <property name="java.class.path" value="C:\dev\NetBeans8.2\java\maven\boot\plexus-classworlds-2.4.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_144\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=emailTest#testSendEmail -Dmaven.ext.class.path=C:\dev\NetBeans8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_144"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_144\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_144\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="C:\dev\NetBeans8.2\java\maven"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase name="testSendEmail" classname="emailTest" time="2.035">
+    <error message="test timed out after 1000 milliseconds" type="org.junit.runners.model.TestTimedOutException">org.junit.runners.model.TestTimedOutException: test timed out after 1000 milliseconds
+	at emailTest.testSendEmail(emailTest.java:59)
+</error>
+    <system-out><![CDATA[[INFO ] 2017-09-25 18:13:03.816 [main] emailTest - Seeding Database
+[DEBUG] 2017-09-25 18:13:04.041 [main] emailTest - Statement= USE AGENDAdb;
+[DEBUG] 2017-09-25 18:13:04.052 [main] emailTest - Statement= DROP TABLE IF EXISTS EMAIL;
+[DEBUG] 2017-09-25 18:13:04.063 [main] emailTest - Statement= DROP TABLE IF EXISTS APPOINTMENTGROUP;
+[DEBUG] 2017-09-25 18:13:04.070 [main] emailTest - Statement= DROP TABLE IF EXISTS APPOINTMENT;
+[DEBUG] 2017-09-25 18:13:04.079 [main] emailTest - Statement= CREATE TABLE EMAIL (UNAME varchar(60) PRIMARY KEY,EMAIL varchar(60) NOT NULL,PASSWORD varchar(60) NOT NULL,URL varchar(60) NOT NULL,PORT int NOT NULL DEFAULT 465,ISDEFAULT boolean NOT NULL DEFAULT 0,REMINDER int NOT NULL DEFAULT 0);
+[DEBUG] 2017-09-25 18:13:04.107 [main] emailTest - Statement= CREATE TABLE APPOINTMENTGROUP (GROUPNUMBER int NOT NULL AUTO_INCREMENT PRIMARY KEY,GROUPNAME varchar(30) NOT NULL,COLOR char(10));
+[DEBUG] 2017-09-25 18:13:04.136 [main] emailTest - Statement= CREATE TABLE APPOINTMENT (ID int NOT NULL AUTO_INCREMENT PRIMARY KEY,TITLE varchar(60) NOT NULL,LOCATION varchar(60) NOT NULL,STARTTIME timestamp DEFAULT 0,ENDTIME timestamp DEFAULT 0,DETAILS varchar(60),WHOLEDAY boolean,APPOINTMENTGROUP int,ALARM boolean);
+[DEBUG] 2017-09-25 18:13:04.165 [main] emailTest - Statement= INSERT INTO APPOINTMENTGROUP (GROUPNAME, COLOR) values("Family", "Yellow"),("Meetings", "Green"),("School Work", "Red"),("Fun", "Pink");
+[DEBUG] 2017-09-25 18:13:04.170 [main] emailTest - Statement= INSERT INTO APPOINTMENT (TITLE, LOCATION, STARTTIME, ENDTIME, DETAILS, WHOLEDAY, APPOINTMENTGROUP, ALARM) values("Dinner", "John's place", "2017-09-01 12:00:00", "2017-09-01 14:00:00", "Celebration, buy gift after", 0, 1, 1),("Supper", "John's place", "2017-09-01 18:00:00", "2017-09-01 21:00:00", "Celebration, bring gift", 0, 1, 1),("Soccer", "Tim's highschool", "2017-09-03 10:00:00", "2017-09-01 14:00:00", "Practice", 0, 1, 1),("Family time", "Home", "2017-09-01 15:00:00", "2017-09-01 22:00:00", "Buy a new board game", 0, 1, 1),("Music class", "Dawson College", "2017-10-01 11:00:00", "2017-10-01 12:30:00", "Don't forget to bring your drums", 0, 1,1),("Gym class", "Dawson College", "2017-10-01 13:00:00", "2017-10-01 15:00:00", "Gym clothes and shoes", 0, 1, 1),("Breakfast", "Tim's place", "2017-11-01 8:00:00", "2017-11-01 10:00:00", "Bring bacon", 0, 1, 1),("Swimming", "Verdun park", "2017-11-01 12:00:00", "2017-11-01 17:00:00", "Call Tim to confirm", 0, 1, 1),("Supper", "Home", "2017-11-01 18:00:00", "2017-11-01 20:00:00", "", 0, 1, 1),("Movie", "Home", "2017-11-01 20:00:00", "2017-11-01 22:00:00", "", 0, 1, 1),("Breakfast", "Bob's place", "2017-12-01 8:00:00", "2017-12-01 10:00:00", "", 0, 1,1),("Karate class", "Wellington st", "2017-12-01 11:00:00", "2017-12-01 13:00:00", "", 0, 1,1),("Party","Juan's place","2017-07-02 21:00:00", "2017-07-03 3:00:00", "Bring GG", 0, 1,1),("Java class","Dawson College","2017-07-03 10:00:00", "2017-07-03 13:00:00", "Don't be too hungover", 0, 1, 1),("Gym class","Dawson college","2017-07-03 14:00:00", "2017-07-03 17:00:00", "Don't puke hombre", 0, 1, 1),("Accounting course online sign-up","","2017-07-05 10:00:00", "2017-07-05 10:05:00", "", 0, 1, 1),("Buisness course online sign-up","","2017-07-06 10:00:00", "2017-07-06 10:05:00", "", 0, 1, 1),("Art's course online sign-up","","2017-07-07 10:00:00", "2017-07-06 10:05:00", "", 0, 1, 1),("C# course online sign-up","","2017-07-07 10:00:00", "2017-07-07 10:05:00", "", 0, 1, 1),("Java course online sign-up","","2017-07-07 11:00:00", "2017-07-07 11:05:00", "", 0, 1, 1),("PHP course online sign-up","","2017-07-07 12:00:00", "2017-07-07 12:05:00", "", 0, 1, 1),("Dora's exploration course online sign-up","","2017-07-10 2:00:00", "2017-07-06 2:05:00", "", 0, 1, 1),("Gym course online sign-up","","2017-07-11 10:00:00", "2017-07-11 10:05:00", "", 0, 1, 1),("Valerie's Birthday","Moe's pub","2017-07-15 18:00:00", "2017-07-16 3:00:00", "Get her roses!", 0, 1, 1),("Rock climbing","Dawson College","2017-07-21 18:00:00", "2017-07-21 21:00:00", "6$ admission", 0, 1, 1),("Nascar rally","McGill campus","2017-08-01 12:00:00", "2017-07-16 21:00:00", "Bring tickets and beer!", 1, 1, 1),("University student for a day","McGill campus","2017-08-03 10:00:00", "2017-08-03 18:00:00", "Bring student transript and notepad", 0, 1, 1),("University onsite registration","McGill campus","2017-08-05 8:00:00", "2017-08-05 13:00:00", "Bring student transript and ID", 0, 0, 1),("Recieving Waffle maker","Post Canada","2017-08-07 10:00:00", "2017-08-03 10:05:00", "Bring recipt i printed out", 0, 2, 1),("Waffles!","Home","2017-08-08 8:00:00", "2017-08-08 10:00:00", "Read the manuel, don't burn them!", 0, 2, 1),("Ben's giraffe viewing class ","McGill campus","2017-08-10 10:00:00", "2017-08-10 18:00:00", "Bring binoculars", 0, 2, 1),("Meeting with Ken Fogel","Dawson College","2017-09-01 10:00:00", "2017-09-01 12:00:00", "Bring your smile!", 0, 2, 1),("Java homework due", "Dawson College", "2017-04-01 8:30:00", "2017-04-01 8:30:01", "DB project", 0, 3, 1),("C# homework due", "Dawson College", "2017-05-03 8:30:00", "2017-05-03 8:30:00", "Monogame phase", 0, 3, 1),("Gym homework due", "Dawson College", "2017-05-06 8:30:00", "2017-05-06 8:30:00", "Squat sheet", 0, 3, 1),("Marketing homework due", "Dawson College", "2017-04-05 8:30:00", "2017-04-05 8:30:01", "Dollar value sheet pg.17", 0, 3, 1),("Accounting homework due", "Dawson College", "2017-04-09 8:30:00", "2017-04-09 8:30:01", "Excerise 18+19", 0, 3, 1),("Java homework due", "Dawson College", "2017-04-01 8:30:00", "2017-04-01 8:30:01", "Observer Class", 0, 3, 1),("Geo homework due", "Dawson College", "2017-01-01 8:30:00", "2017-01-01 8:30:01", "Map sheet pg.7", 0, 3, 1),("Dance with Marie", "Churchill", "2017-07-19 21:00:00", "2017-07-20 4:00:00", "Dance your life away!", 0, 2, 1),("Brush the cat!", "Home", "2017-08-02 8:00:00", "2017-08-02 9:00:00", "Take hair off after!", 0, 1, 1),("Presentatino on wolves", "McGill", "2017-01-02 8:30:00", "2017-01-02 10:30:00", "", 0, 1, 1),("Zoo", "Zoo Granby", "2017-02-03 10:30:00", "2017-02-03 20:30:00", "Bring the camera!", 1, 3, 1),("Jungle Gym", "Jungle Gym inc.", "2017-01-06 10:30:00", "2017-02-03 14:30:00", "", 0, 2, 1),("Alexander the great presentation","McGill", "2017-02-06 10:30:00", "2017-02-06 13:30:00", "", 0, 1, 1),("History Class", "Dawson College", "2017-03-19 8:30:00", "2017-03-19 10:30:00", "Bring textbook", 0, 1, 1),("Buy school books", "Dawson College", "2017-08-30 8:30:00", "2017-08-30 9:30:00", "Be the first in line!", 0, 2, 1),("Date time!", "Studio Movie", "2017-09-30 21:30:00", "2017-09-30 2:30:00", "Wear the suit she gave you!", 0, 3, 1),("Dance class", "Dawson College", "2017-09-30 10:30:00", "2017-09-30 12:30:00", "Bring the appropriate shoes", 0, 1, 1),("Buy gym shoes", "Alexis Nihon", "2017-08-30 11:30:00", "2017-08-30 13:30:00", "Don't forget the coupon!", 0, 2, 1);
+[DEBUG] 2017-09-25 18:13:04.188 [main] emailTest - Statement= INSERT INTO EMAIL (UNAME, EMAIL, PASSWORD, URL, PORT, ISDEFAULT, REMINDER) values("Sebastian Gregoire", "mangoMan123@gmail.com", "ilovemangos", "smtp.gmail.com", 25, 0, 1),("Sebastian Laureau", "cardude123@gmail.com", "mustangforlife", "smtp.gmail.com", 587, 0, 0),("Max Lacasse", "JAM1537681@gmail.com", "JAMproject", "smtp.gmail.com", 587, 1, 120);
+[DEBUG] 2017-09-25 18:13:04.308 [Time-limited test] emailTest - starttime1: 2017-09-25 20:13:04.236
+[DEBUG] 2017-09-25 18:13:04.309 [Time-limited test] emailTest - starttime2: 2017-09-25 20:13:04.236
+[DEBUG] 2017-09-25 18:13:04.309 [Time-limited test] emailTest - starttime3: 2017-09-25 20:13:04.236
+[DEBUG] 2017-09-25 18:13:04.309 [Time-limited test] emailTest - starttime4: 2017-09-25 20:13:04.236
+[DEBUG] 2017-09-25 18:13:04.321 [Time-limited test] emailTest - apt1: Washing dishes
+[DEBUG] 2017-09-25 18:13:04.330 [Time-limited test] emailTest - apt2: Washing car
+[DEBUG] 2017-09-25 18:13:04.337 [Time-limited test] emailTest - apt3: Washing home
+[DEBUG] 2017-09-25 18:13:04.344 [Time-limited test] emailTest - apt4: Washing NO ALARM
+[DEBUG] 2017-09-25 18:13:04.350 [Time-limited test] emailTest - ct: 2017-09-25T20:13:04.350
+[DEBUG] 2017-09-25 18:13:04.350 [Time-limited test] emailTest - ctTs: 2017-09-25 20:13:04.35
+[DEBUG] 2017-09-25 18:13:04.350 [Time-limited test] AgendaDAO - plus5: 2017-09-25 20:18:04.35
+[DEBUG] 2017-09-25 18:13:04.351 [Time-limited test] AgendaDAO - minus5: 2017-09-25 20:08:04.35
+[DEBUG] 2017-09-25 18:13:04.351 [Time-limited test] AgendaDAO - query suspect: SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE STARTTIME BETWEEN ? AND ?
+[DEBUG] 2017-09-25 18:13:04.355 [Time-limited test] AgendaDAO - conn done
+[DEBUG] 2017-09-25 18:13:04.355 [Time-limited test] AgendaDAO - minus5 set 2017-09-25 20:18:04.35
+[DEBUG] 2017-09-25 18:13:04.356 [Time-limited test] AgendaDAO - plus5 set 2017-09-25 20:08:04.35
+com.mysql.jdbc.JDBC42PreparedStatement@3e0033a2: SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE STARTTIME BETWEEN '2017-09-25 20:08:04.35' AND '2017-09-25 20:18:04.35'
+[DEBUG] 2017-09-25 18:13:04.359 [Time-limited test] AgendaDAO - rs exe
+[DEBUG] 2017-09-25 18:13:04.359 [Time-limited test] AgendaDAO - aptmaking
+[DEBUG] 2017-09-25 18:13:04.360 [Time-limited test] AgendaDAO - apt: Washing dishes
+[DEBUG] 2017-09-25 18:13:04.360 [Time-limited test] AgendaDAO - apt: 2017-09-25 20:13:04.0
+[DEBUG] 2017-09-25 18:13:04.360 [Time-limited test] AgendaDAO - aptmaking
+[DEBUG] 2017-09-25 18:13:04.360 [Time-limited test] AgendaDAO - apt: Washing car
+[DEBUG] 2017-09-25 18:13:04.360 [Time-limited test] AgendaDAO - apt: 2017-09-25 20:13:04.0
+[DEBUG] 2017-09-25 18:13:04.360 [Time-limited test] AgendaDAO - aptmaking

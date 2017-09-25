@@ -27,6 +27,7 @@ import java.util.Scanner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,7 @@ import org.slf4j.LoggerFactory;
  * @Maxime Lacasse
  * @version 1.2
  */
+
 public class dbTest {
     
     //Hard-coded parameters for the connection to the MySql database
@@ -59,6 +61,8 @@ public class dbTest {
         email.setPassword("TestPassword");
         email.setURL("smtp.gmail.com");
         email.setPort(123);
+        email.setIsDefault(FALSE);
+        email.setReminder(1);
         int records = agenda.create(email);
 
         Email emailTest = agenda.findEmail(email.getName());
@@ -77,6 +81,8 @@ public class dbTest {
         email.setPassword(null); //Should not get past this.
         email.setURL("smtp.gmail.com");
         email.setPort(123);
+        email.setIsDefault(FALSE);
+        email.setReminder(1);
         agenda.create(email);
        
         // If an exception was not thrown then the test failed
@@ -88,7 +94,7 @@ public class dbTest {
         iAgendaDAO agenda = new AgendaDAO();
         List<Email> email = agenda.findAllEmails();
 
-        assertEquals("# of Emails", 2, email.size());
+        assertEquals("# of Emails", 3, email.size());
     }
     
     @Test
@@ -101,6 +107,8 @@ public class dbTest {
         email.setPassword("TestNameUpdatePassword");
         email.setURL("smtp.gmail.com");
         email.setPort(123);
+        email.setIsDefault(FALSE);
+        email.setReminder(1);
         agenda.create(email);
         
         Email emailTest = new Email();
@@ -108,6 +116,26 @@ public class dbTest {
         
         assertEquals("Emails matched", email, emailTest);
         
+    }
+    
+     @Test 
+    public void testFindEmailByDefault() throws SQLException {
+        iAgendaDAO agenda = new AgendaDAO();
+        
+        Email email =  new Email();
+        email.setName("Max Lacasse");
+        email.setEmail("JAM1537681@gmail.com");
+        email.setPassword("JAMproject");
+        email.setURL("smtp.gmail.com");
+        email.setPort(587);
+        email.setIsDefault(TRUE);
+        email.setReminder(120);
+        
+        Email emailTest = new Email();
+        emailTest = agenda.findEmailByDefault(TRUE);
+        
+        assertEquals("Email with default true found", email, emailTest);
+  
     }
     
     
@@ -122,6 +150,8 @@ public class dbTest {
         email.setPassword("TestNameUpdatePassword");
         email.setURL("smtp.gmail.com");
         email.setPort(123);
+        email.setIsDefault(FALSE);
+        email.setReminder(1);
         
         int records = agenda.update(email);
         
@@ -139,6 +169,8 @@ public class dbTest {
         email.setPassword("TestNameUpdatePassword");
         email.setURL("smtp.gmail.com");
         email.setPort(123);
+        email.setIsDefault(FALSE);
+        email.setReminder(1);
         
         int records = agenda.update(email);
         
@@ -156,8 +188,10 @@ public class dbTest {
         email.setPassword("TestNameUpdatePassword");
         email.setURL("smtp.gmail.com");
         email.setPort(123);
+        email.setIsDefault(FALSE);
+        email.setReminder(1);
         agenda.create(email);
-        
+         
         int records = agenda.deleteEmail("Sebby Brown");
         
         assertEquals("Return of 1 is success", 1, records);   
@@ -176,7 +210,6 @@ public class dbTest {
         apt.setDetails("Oh lord...");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(4);
-        apt.setReminder(15);
         apt.setAlarm(TRUE);
         
         int records = agenda.create(apt);
@@ -198,7 +231,6 @@ public class dbTest {
         apt.setDetails("Oh lord...");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(4);
-        apt.setReminder(15);
         apt.setAlarm(TRUE);
         
         int records = agenda.create(apt);
@@ -226,7 +258,6 @@ public class dbTest {
         apt.setDetails("Oh lord...");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(4);
-        apt.setReminder(15);
         apt.setAlarm(TRUE);
         
         int records = agenda.create(apt);
@@ -249,7 +280,6 @@ public class dbTest {
         apt.setDetails("Oh lord...");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(4);
-        apt.setReminder(15);
         apt.setAlarm(TRUE);
         
         int records = agenda.create(apt);
@@ -272,14 +302,18 @@ public class dbTest {
         apt.setDetails("Oh lord...");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(4);
-        apt.setReminder(15);
         apt.setAlarm(TRUE);
         
         int records = agenda.create(apt);
         
-        Appointment aptTest = agenda.findAppointmentByStartTime((Timestamp.valueOf("2017-07-07 12:00:01")));
+        log.debug("records: " + records);
         
-        assertEquals("Appointments matched", apt, aptTest);
+        List<Appointment> aptTest = agenda.findAppointmentByStartTime((Timestamp.valueOf("2017-07-07 12:00:01")));
+        
+        log.debug("aptTest1: " + aptTest.get(0));
+        log.debug("aptTest size: " + aptTest.size());
+        
+        assertEquals("Appointments matched", apt, aptTest.get(0));
     }
     
     
@@ -295,7 +329,6 @@ public class dbTest {
         apt.setDetails("Oh lord...");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(4);
-        apt.setReminder(15);
         apt.setAlarm(TRUE);
         
         int records = agenda.create(apt);
@@ -303,6 +336,35 @@ public class dbTest {
         Appointment aptTest = agenda.findAppointmentByEndTime((Timestamp.valueOf("2017-07-07 12:05:01")));
         
         assertEquals("Appointments matched", apt, aptTest);
+    }
+    
+    @Test
+    public void testFindAppointmentByStartTimeBetween5Mins() throws SQLException {
+        iAgendaDAO agenda = new AgendaDAO();
+        
+        Appointment apt = new Appointment();
+        apt.setTitle("Washing Dishes");
+        apt.setLocation("Home");
+        apt.setStartTime(Timestamp.valueOf("2017-07-07 12:00:01"));
+        apt.setEndTime(Timestamp.valueOf("2017-07-07 12:05:01"));
+        apt.setDetails("Oh lord...");
+        apt.setWholeDay(FALSE);
+        apt.setAppointmentGroup(4);
+        apt.setAlarm(TRUE);
+        
+        int records = agenda.create(apt);
+        
+        log.debug("records: " + records);
+        
+        Timestamp time = Timestamp.valueOf("2017-09-01 12:00:00.000");
+        
+        List<Appointment> aptTest = agenda.findAppointmentsFromStartBetween5Mins(time);
+        
+        
+        log.debug("aptTest1: " + aptTest.get(0));
+        log.debug("aptTest size: " + aptTest.size());
+        
+        assertEquals("Appointments matched", apt, aptTest.get(0));
     }
     
     @Test
@@ -428,7 +490,6 @@ public class dbTest {
         apt.setDetails("Test");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(1);
-        apt.setReminder(1);
         apt.setAlarm(TRUE);
         
         int records = agenda.update(apt);
@@ -451,7 +512,6 @@ public class dbTest {
         apt.setDetails("Test");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(1);
-        apt.setReminder(1);
         apt.setAlarm(TRUE);
         
         int records = agenda.update(apt);
@@ -472,7 +532,6 @@ public class dbTest {
         apt.setDetails("Test");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(1);
-        apt.setReminder(1);
         apt.setAlarm(TRUE);
         agenda.create(apt);
         
@@ -496,7 +555,6 @@ public class dbTest {
         apt.setDetails("Test");
         apt.setWholeDay(FALSE);
         apt.setAppointmentGroup(1);
-        apt.setReminder(1);
         apt.setAlarm(TRUE);
         agenda.create(apt);
         

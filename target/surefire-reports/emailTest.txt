@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: emailTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.467 s <<< FAILURE! - in emailTest
+testSendEmail(emailTest)  Time elapsed: 2.035 s  <<< ERROR!
+org.junit.runners.model.TestTimedOutException: test timed out after 1000 milliseconds
+	at emailTest.testSendEmail(emailTest.java:59)
+

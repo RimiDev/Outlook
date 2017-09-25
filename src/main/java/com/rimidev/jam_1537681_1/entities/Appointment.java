@@ -29,18 +29,17 @@ public class Appointment {
     private String details;
     private boolean wholeDay;
     private int appointmentGroup;
-    private int reminder;
     private boolean alarm;
 
     //Default constructor setting to nothing.
     public Appointment() {
         this(-1, "", "", Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()),
-                "", FALSE, -1, -1, FALSE);
+                "", FALSE, -1, FALSE);
     }
 
     //Constructor initilizing as wanted.
     public Appointment(int id, String title, String location, Timestamp startTime, Timestamp endTime,
-            String details, boolean wholeDay, int appointmentGroup, int reminder, boolean alarm) {
+            String details, boolean wholeDay, int appointmentGroup, boolean alarm) {
         this.id = id;
         this.title = title;
         this.location = location;
@@ -49,12 +48,12 @@ public class Appointment {
         this.details = details;
         this.wholeDay = wholeDay;
         this.appointmentGroup = appointmentGroup;
-        this.reminder = reminder;
         this.alarm = alarm;
     }
 
     /**
      * Simple setters and getters
+     * @return 
      */
     public int getId() {
         return id;
@@ -120,14 +119,6 @@ public class Appointment {
         this.appointmentGroup = appointmentGroup;
     }
 
-    public int getReminder() {
-        return reminder;
-    }
-
-    public void setReminder(int reminder) {
-        this.reminder = reminder;
-    }
-
     public boolean getAlarm() {
         return alarm;
     }
@@ -147,7 +138,6 @@ public class Appointment {
         hash = 47 * hash + Objects.hashCode(this.details);
         hash = 47 * hash + (this.wholeDay ? 1 : 0);
         hash = 47 * hash + this.appointmentGroup;
-        hash = 47 * hash + this.reminder;
         hash = 47 * hash + (this.alarm ? 1 : 0);
         return hash;
     }
@@ -173,9 +163,6 @@ public class Appointment {
         if (this.appointmentGroup != other.appointmentGroup) {
             return false;
         }
-        if (this.reminder != other.reminder) {
-            return false;
-        }
         if (this.alarm != other.alarm) {
             return false;
         }
@@ -199,7 +186,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment{" + "id=" + id + ", title=" + title + ", location=" + location + ", startTime=" + startTime + ", endTime=" + endTime + ", details=" + details + ", wholeDay=" + wholeDay + ", appointmentGroup=" + appointmentGroup + ", reminder=" + reminder + ", alarm=" + alarm + '}';
+        return "Appointment{" + "id=" + id + ", title=" + title + ", location=" + location + ", startTime=" + startTime + ", endTime=" + endTime + ", details=" + details + ", wholeDay=" + wholeDay + ", appointmentGroup=" + appointmentGroup + ", alarm=" + alarm + '}';
     }
 
 

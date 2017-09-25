@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.rimidev.dbTest.dbTest" time="6.66" tests="31" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.rimidev.dbTest.dbTest" time="0.853" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_144\jre\bin"/>
@@ -14,8 +14,9 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
+    <property name="test" value="com.rimidev.dbTest.dbTest#testFindEmailByDefault"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\1537681\Desktop\JAM_1537681_1.2"/>
+    <property name="user.dir" value="I:\Jam1.3\JAM_1537681_1.2"/>
     <property name="java.runtime.version" value="1.8.0_144-b01"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_144\jre\lib\endorsed"/>
@@ -43,7 +44,7 @@
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_144\jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=C:\dev\NetBeans8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.rimidev.dbTest.dbTest#testFindEmailByDefault -Dmaven.ext.class.path=C:\dev\NetBeans8.2\java\maven-nblib\netbeans-eventspy.jar -Dfile.encoding=UTF-8 surefire:test"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -60,35 +61,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testFindAppointmentByDay" classname="com.rimidev.dbTest.dbTest" time="0.533"/>
-  <testcase name="testFindAppointmentGroup" classname="com.rimidev.dbTest.dbTest" time="0.188"/>
-  <testcase name="testDeleteAppointmentGroup" classname="com.rimidev.dbTest.dbTest" time="0.181"/>
-  <testcase name="testUpdateAppointmentGroup" classname="com.rimidev.dbTest.dbTest" time="0.167"/>
-  <testcase name="testDeleteEmail" classname="com.rimidev.dbTest.dbTest" time="0.181"/>
-  <testcase name="testDeleteAppointmentByID" classname="com.rimidev.dbTest.dbTest" time="0.173"/>
-  <testcase name="testEmailCreateWithOneNullParam" classname="com.rimidev.dbTest.dbTest" time="0.186"/>
-  <testcase name="testUpdateAppointmentWithTooLongTitle" classname="com.rimidev.dbTest.dbTest" time="0.265"/>
-  <testcase name="testFindAllAppointmentGroups" classname="com.rimidev.dbTest.dbTest" time="0.464"/>
-  <testcase name="testUpdateEmail" classname="com.rimidev.dbTest.dbTest" time="0.003"/>
-  <testcase name="testFindAppointmentByWrongFormatMonth" classname="com.rimidev.dbTest.dbTest" time="0.018"/>
-  <testcase name="testFindAppointmentByWeek" classname="com.rimidev.dbTest.dbTest" time="0.164"/>
-  <testcase name="testAppointmentGroupCreateWithNullParam" classname="com.rimidev.dbTest.dbTest" time="0.18"/>
-  <testcase name="testUpdateAppointment" classname="com.rimidev.dbTest.dbTest" time="0.231"/>
-  <testcase name="testFindAppointByStartTime" classname="com.rimidev.dbTest.dbTest" time="0.18"/>
-  <testcase name="testUpdateEmailWithTooLongEmail" classname="com.rimidev.dbTest.dbTest" time="0.173"/>
-  <testcase name="testUpdateAppointmentGroupWithTooLongGroupname" classname="com.rimidev.dbTest.dbTest" time="0.169"/>
-  <testcase name="testDeleteAppointmentByTitle" classname="com.rimidev.dbTest.dbTest" time="0.168"/>
-  <testcase name="testFindAppointmentByWrongFormatDay" classname="com.rimidev.dbTest.dbTest" time="0.266"/>
-  <testcase name="testFindAllAppointments" classname="com.rimidev.dbTest.dbTest" time="0.215"/>
-  <testcase name="testAppointmentCreateWithOneNullParam" classname="com.rimidev.dbTest.dbTest" time="0.17"/>
-  <testcase name="testFindAppointmentByMonth" classname="com.rimidev.dbTest.dbTest" time="0.186"/>
-  <testcase name="testFindAppointmentByTitle" classname="com.rimidev.dbTest.dbTest" time="0.195"/>
-  <testcase name="testAppointmentCreate" classname="com.rimidev.dbTest.dbTest" time="0.233"/>
-  <testcase name="testEmailCreate" classname="com.rimidev.dbTest.dbTest" time="0.18"/>
-  <testcase name="testFindEmail" classname="com.rimidev.dbTest.dbTest" time="0.16"/>
-  <testcase name="testAppointmentGroupCreate" classname="com.rimidev.dbTest.dbTest" time="0.168"/>
-  <testcase name="testFindAllEmails" classname="com.rimidev.dbTest.dbTest" time="0.17"/>
-  <testcase name="testFindAppointmentById" classname="com.rimidev.dbTest.dbTest" time="0.263"/>
-  <testcase name="testFindAppointmentByEndTime" classname="com.rimidev.dbTest.dbTest" time="0.214"/>
-  <testcase name="testFindAppointmentByWrongFormatWeek" classname="com.rimidev.dbTest.dbTest" time="0.176"/>
+  <testcase name="testFindEmailByDefault" classname="com.rimidev.dbTest.dbTest" time="0.428"/>
 </testsuite>

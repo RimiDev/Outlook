@@ -3,7 +3,21 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.RimiDev</groupId>
   <artifactId>JAM_1537681_1.2</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <name>JAM_1537681_1.2</name>
+  <version>1.2</version>
+  <description>This is the ultimate Java Agenda Manager System that will
+    set up appointments to keep the user updated on if they have appointments
+    that they have in the near future or of that they missed.</description>
+  <developers>
+    <developer>
+      <id>1537681</id>
+      <name>Maxime Lacasse</name>
+      <email>MaximeLacasseDeveloper@gmail.com</email>
+    </developer>
+  </developers>
+  <organization>
+    <name>Dawson College</name>
+  </organization>
   <build>
     <defaultGoal>clean compile test</defaultGoal>
     <plugins>
