@@ -11,6 +11,7 @@ import com.rimidev.jam_1537681_1.controllers.AgendaFormController;
 import com.rimidev.jam_1537681_1.persistence.AgendaDAO;
 import com.rimidev.jam_1537681_1.persistence.iAgendaDAO;
 import com.rimidev.jam_1537681_1.controllers.SampleController;
+import com.rimidev.jam_1537681_1.entities.Appointment;
 import java.util.Locale;
 
 import javafx.application.Application;
@@ -35,7 +36,9 @@ public class AgendaApp extends Application {
 
     // The primary window or frame of this application
     private Stage primaryStage;
-    private iAgendaDAO agendaDAO;
+    private final iAgendaDAO agendaDAO;
+    private final Appointment apt;
+    
     private final Locale currentLocale;
 
     /**
@@ -45,6 +48,7 @@ public class AgendaApp extends Application {
         super();
         currentLocale = new Locale("en", "CA");
         agendaDAO = new AgendaDAO();
+        apt = new Appointment();
     }
 
     /**
@@ -103,6 +107,7 @@ public class AgendaApp extends Application {
             // reference to the persistence object
            AgendaFormController controller = loader.getController();
 //            controller.setFishDAO(fishDAO);
+            controller.setAgendaDAOData(apt, agendaDAO);
 
         } catch (IOException ex) { // getting resources or files
             // could fail

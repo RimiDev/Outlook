@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,17 +35,19 @@ public class AgendaFormController {
 
     // Database access
     private AgendaDAO agendaDAO;
-    private Appointment appointment;  
+    //private Appointment appointment;  
     
     ObservableList<String> aptGroupChoices = FXCollections.observableArrayList();
     ObservableList<String> hourChoice = FXCollections.observableArrayList();
     ObservableList<String> minuteChoice = FXCollections.observableArrayList();
     ObservableList<String> secondChoice = FXCollections.observableArrayList();
+    private Appointment apt;
     
     public AgendaFormController() {
         super();
         log.info("Default Constructor");
     }
+    
             
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -270,6 +273,7 @@ public class AgendaFormController {
         if (endSecond.getValue() == null){
             return false;
         } 
+        
         return true;
     }
     
@@ -317,7 +321,7 @@ public class AgendaFormController {
 
     @FXML
     void Exit(ActionEvent event) {
-        
+        Platform.exit();
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -326,10 +330,7 @@ public class AgendaFormController {
         createHourChoice();
         createMinuteChoice();
         createSecondChoice();
-
-    }
-    
-    
+    } 
     /**
      * Sets a reference to the agendaDAO object that retrieves data from the
      * database.
@@ -364,6 +365,8 @@ public class AgendaFormController {
         }       
         startHour.setItems(hourChoice); 
         endHour.setItems(hourChoice);
+        startHour.setValue(hourChoice.get(0));
+        endHour.setValue(hourChoice.get(0));
     }
     
     public void createMinuteChoice(){
@@ -376,6 +379,8 @@ public class AgendaFormController {
         }
         startMinute.setItems(minuteChoice);
         endMinute.setItems(minuteChoice);
+        startMinute.setValue(minuteChoice.get(0));
+        endMinute.setValue(minuteChoice.get(0));
     }
     
     public void createSecondChoice(){
@@ -388,9 +393,52 @@ public class AgendaFormController {
         }
         startSecond.setItems(secondChoice);
         endSecond.setItems(secondChoice);
+        startSecond.setValue(secondChoice.get(0));
+        endSecond.setValue(secondChoice.get(0));      
     }
     
     
     
     
-}
+    public void setAgendaDAOData(Appointment apt, AgendaDAO agendaDAO) {
+        this.apt = apt;
+        try {
+            this.agendaDAO = agendaDAO;
+            agendaDAO.create(apt);
+        } catch (SQLException ex) {
+            log.error("SQL Error", ex);
+        }
+    }
+    
+    
+//    private void doBindings() {
+//
+//        // Two way binding
+//        //Bindings.bindBidirectional(idTextField.textProperty(), fishData.idProperty(), new NumberStringConverter());
+//        Bindings.bindBidirectional(AptTitle.textProperty(), apt.titleProperty());
+//        Bindings.bindBidirectional(Location.textProperty(), apt.locationProperty());
+//        //Bindings.bindBidirectional(StartTime.textProperty(), apt.startTimeProperty());
+//        //Bindings.bindBidirectional(EndTime.textProperty(), apt.endTimeProperty());
+//        Bindings.bindBidirectional(Details.textProperty(), apt.detailsProperty());
+//        Bindings.bindBidirectional(WDyes.toggleGroupProperty(), apt.wholeDayProperty());
+//        Bindings.bindBidirectional(WDno.toggleGroupProperty(), apt.wholeDayProperty());
+//        Bindings.bindBidirectional(Alarm.textProperty(), fishData.speciesOriginProperty());
+//        Bindings.bindBidirectional(tankSizeTextField.textProperty(), fishData.tankSizeProperty());
+//        Bindings.bindBidirectional(stockingTextField.textProperty(), fishData.stockingProperty());
+//        Bindings.bindBidirectional(dietTextField.textProperty(), fishData.dietProperty());
+
+        // One Way Binding. Bind from bean property to TextField
+//        idTextField.textProperty().bind(fishData.idProperty().asString());
+//        commonNameTextField.textProperty().bind(fishData.commonNameProperty());
+//        latinTextField.textProperty().bind(fishData.latinProperty());
+//        phTextField.textProperty().bind(fishData.phProperty());
+//        khTextField.textProperty().bind(fishData.khProperty());
+//        tempTextField.textProperty().bind(fishData.tempProperty());
+//        fishSizeTextField.textProperty().bind(fishData.fishSizeProperty());
+//        speciesOriginTextField.textProperty().bind(fishData.speciesOriginProperty());
+//        tankSizeTextField.textProperty().bind(fishData.tankSizeProperty());
+//        stockingTextField.textProperty().bind(fishData.stockingProperty());
+//        dietTextField.textProperty().bind(fishData.dietProperty());
+    }
+
+   
