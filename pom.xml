@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.RimiDev</groupId>
-    <artifactId>JAM_1537681_1.2</artifactId>
+    <groupId>com.rimidev</groupId>
+    <artifactId>jam_1537681_1</artifactId>
     <version>1.2</version>
     <packaging>jar</packaging>
     
@@ -39,7 +39,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- class that has the main method -->
-        <!-- <mainClass></mainClass> -->
+         <mainClass>${project.groupId}.${project.artifactId}.main.AgendaApp</mainClass> 
         <!-- There is no main method yet, jsut persistence code -->
     </properties>
 
@@ -84,6 +84,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.43</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-mail</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -91,7 +98,7 @@
         <!-- Goals may be set in the IDE or the pom IDE or CLI goals override the
         defaultGoal -->
         <!-- still under devlopment so not read to package or exec -->
-        <defaultGoal>clean compile test</defaultGoal>
+        <defaultGoal>clean compile package exec:exec</defaultGoal>
 
         <!-- Plugins define components that perform actions -->
         <plugins>

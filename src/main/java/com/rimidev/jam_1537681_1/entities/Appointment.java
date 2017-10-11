@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.*;
 
 /**
  *
@@ -21,134 +22,170 @@ import java.util.Objects;
 public class Appointment {
 
     //Appointment fields
-    private int id;
-    private String title;
-    private String location;
-    private Timestamp startTime;
-    private Timestamp endTime;
-    private String details;
-    private boolean wholeDay;
-    private int appointmentGroup;
-    private int reminder;
-    private boolean alarm;
+    private final IntegerProperty id;
+    private final StringProperty title;
+    private final StringProperty location;
+    private final ObjectProperty<Timestamp> startTime;
+    private final ObjectProperty<Timestamp> endTime;
+    private final StringProperty details;
+    private final BooleanProperty wholeDay;
+    private final IntegerProperty appointmentGroup;
+    private final BooleanProperty alarm;
 
     //Default constructor setting to nothing.
     public Appointment() {
-        this(-1, "", "", Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()),
-                "", FALSE, -1, -1, FALSE);
+        this.id = new SimpleIntegerProperty(0);
+        this.title = new SimpleStringProperty("");
+        this.location = new SimpleStringProperty("");
+        this.startTime = new SimpleObjectProperty("");
+        this.endTime = new SimpleObjectProperty("");
+        this.details = new SimpleStringProperty("");
+        this.wholeDay = new SimpleBooleanProperty(false);
+        this.appointmentGroup = new SimpleIntegerProperty(0);
+        this.alarm = new SimpleBooleanProperty(false);
     }
 
     //Constructor initilizing as wanted.
     public Appointment(int id, String title, String location, Timestamp startTime, Timestamp endTime,
-            String details, boolean wholeDay, int appointmentGroup, int reminder, boolean alarm) {
-        this.id = id;
-        this.title = title;
-        this.location = location;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.details = details;
-        this.wholeDay = wholeDay;
-        this.appointmentGroup = appointmentGroup;
-        this.reminder = reminder;
-        this.alarm = alarm;
+            String details, boolean wholeDay, int appointmentGroup, boolean alarm) {
+        this.id = new SimpleIntegerProperty(id);
+        this.title = new SimpleStringProperty(title);
+        this.location = new SimpleStringProperty(location);
+        this.startTime = new SimpleObjectProperty<>(startTime);
+        this.endTime = new SimpleObjectProperty<>(endTime);
+        this.details = new SimpleStringProperty(details);
+        this.wholeDay = new SimpleBooleanProperty(wholeDay);
+        this.appointmentGroup = new SimpleIntegerProperty(appointmentGroup);
+        this.alarm = new SimpleBooleanProperty(alarm);
     }
 
     /**
      * Simple setters and getters
+     * @return 
      */
-    public int getId() {
-        return id;
+    public final int getId() {
+        return id.get();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(final int id) {
+        this.id.set(id);
     }
 
-    public String getTitle() {
-        return title;
+    public final String getTitle() {
+        return title.get();
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title.set(title);
     }
 
-    public String getLocation() {
-        return location;
+    public final String getLocation() {
+        return location.get();
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        this.location.set(location);
     }
 
-    public Timestamp getStartTime() {
-        return startTime;
+    public final Timestamp getStartTime() {
+        return startTime.get();
     }
 
     public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
+        this.startTime.set(startTime);
     }
 
-    public Timestamp getEndTime() {
-        return endTime;
+    public final Timestamp getEndTime() {
+        return endTime.get();
     }
 
     public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
+        this.endTime.set(endTime);
     }
 
-    public String getDetails() {
-        return details;
+    public final String getDetails() {
+        return details.get();
     }
 
     public void setDetails(String details) {
-        this.details = details;
+        this.details.set(details);
     }
 
-    public boolean getWholeDay() {
-        return wholeDay;
+    public final boolean getWholeDay() {
+        return wholeDay.get();
     }
 
     public void setWholeDay(boolean wholeDay) {
-        this.wholeDay = wholeDay;
+        this.wholeDay.set(wholeDay);
     }
 
-    public int getAppointmentGroup() {
-        return appointmentGroup;
+    public final int getAppointmentGroup() {
+        return appointmentGroup.get();
     }
 
     public void setAppointmentGroup(int appointmentGroup) {
-        this.appointmentGroup = appointmentGroup;
+        this.appointmentGroup.set(appointmentGroup);
     }
 
-    public int getReminder() {
-        return reminder;
-    }
-
-    public void setReminder(int reminder) {
-        this.reminder = reminder;
-    }
-
-    public boolean getAlarm() {
-        return alarm;
+    public final boolean getAlarm() {
+        return alarm.get();
     }
 
     public void setAlarm(boolean alarm) {
-        this.alarm = alarm;
+        this.alarm.set(alarm);
     }
+    
+    //binding
+    public final IntegerProperty idProperty() {
+        return id;
+    }
+    
+    public final StringProperty titleProperty() {
+        return title;
+    }
+    
+    public final StringProperty locationProperty() {
+        return location;
+    }
+    
+    public final ObjectProperty startTimeProperty() {
+        return startTime;
+    }
+    
+    public final ObjectProperty endTimeProperty() {
+        return endTime;
+    }
+    
+    public final StringProperty detailsProperty() {
+        return details;
+    }
+    
+    public final BooleanProperty wholeDayProperty() {
+        return wholeDay;
+    }
+    
+    public final IntegerProperty appointmentGroupProperty() {
+        return appointmentGroup;
+    }
+    
+    public final BooleanProperty alarmProperty() {
+        return alarm;
+    }
+    
+    
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + this.id;
-        hash = 47 * hash + Objects.hashCode(this.title);
-        hash = 47 * hash + Objects.hashCode(this.location);
-        hash = 47 * hash + Objects.hashCode(this.startTime);
-        hash = 47 * hash + Objects.hashCode(this.endTime);
-        hash = 47 * hash + Objects.hashCode(this.details);
-        hash = 47 * hash + (this.wholeDay ? 1 : 0);
-        hash = 47 * hash + this.appointmentGroup;
-        hash = 47 * hash + this.reminder;
-        hash = 47 * hash + (this.alarm ? 1 : 0);
+        hash = 47 * hash + this.id.get();
+        hash = 47 * hash + Objects.hashCode(this.title.get());
+        hash = 47 * hash + Objects.hashCode(this.location.get());
+        hash = 47 * hash + Objects.hashCode(this.startTime.get());
+        hash = 47 * hash + Objects.hashCode(this.endTime.get());
+        hash = 47 * hash + Objects.hashCode(this.details.get());
+        hash = 47 * hash + (this.wholeDay.get() ? 1 : 0);
+        hash = 47 * hash + this.appointmentGroup.get();
+        hash = 47 * hash + (this.alarm.get() ? 1 : 0);
         return hash;
     }
 
@@ -164,34 +201,31 @@ public class Appointment {
             return false;
         }
         final Appointment other = (Appointment) obj;
-        if (this.id != other.id) {
+        if (this.id.get() != other.id.get()) {
             return false;
         }
-        if (this.wholeDay != other.wholeDay) {
+        if (this.wholeDay.get() != other.wholeDay.get()) {
             return false;
         }
-        if (this.appointmentGroup != other.appointmentGroup) {
+        if (this.appointmentGroup.get() != other.appointmentGroup.get()) {
             return false;
         }
-        if (this.reminder != other.reminder) {
+        if (this.alarm.get() != other.alarm.get()) {
             return false;
         }
-        if (this.alarm != other.alarm) {
+        if (!Objects.equals(this.title.get(), other.title.get())) {
             return false;
         }
-        if (!Objects.equals(this.title, other.title)) {
+        if (!Objects.equals(this.location.get(), other.location.get())) {
             return false;
         }
-        if (!Objects.equals(this.location, other.location)) {
+        if (!Objects.equals(this.details.get(), other.details.get())) {
             return false;
         }
-        if (!Objects.equals(this.details, other.details)) {
+        if (!Objects.equals(this.startTime.get(), other.startTime.get())) {
             return false;
         }
-        if (!Objects.equals(this.startTime, other.startTime)) {
-            return false;
-        }
-        if (!Objects.equals(this.endTime, other.endTime)) {
+        if (!Objects.equals(this.endTime.get(), other.endTime.get())) {
             return false;
         }
         return true;
@@ -199,7 +233,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "Appointment{" + "id=" + id + ", title=" + title + ", location=" + location + ", startTime=" + startTime + ", endTime=" + endTime + ", details=" + details + ", wholeDay=" + wholeDay + ", appointmentGroup=" + appointmentGroup + ", reminder=" + reminder + ", alarm=" + alarm + '}';
+        return "Appointment{" + "id=" + id + ", title=" + title + ", location=" + location + ", startTime=" + startTime + ", endTime=" + endTime + ", details=" + details + ", wholeDay=" + wholeDay + ", appointmentGroup=" + appointmentGroup + ", alarm=" + alarm + '}';
     }
 
 

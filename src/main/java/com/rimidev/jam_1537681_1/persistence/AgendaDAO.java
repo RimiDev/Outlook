@@ -8,6 +8,7 @@ package com.rimidev.jam_1537681_1.persistence;
 import com.rimidev.jam_1537681_1.entities.Appointment;
 import com.rimidev.jam_1537681_1.entities.AppointmentGroup;
 import com.rimidev.jam_1537681_1.entities.Email;
+import static java.lang.Boolean.FALSE;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -55,8 +56,8 @@ public class AgendaDAO implements iAgendaDAO {
     public int create(Email email) throws SQLException {
         int records;
 
-        String query = "INSERT INTO EMAIL (UNAME,EMAIL,PASSWORD,URL,PORT) values"
-                + "(?,?,?,?,?)";
+        String query = "INSERT INTO EMAIL (UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT, REMINDER) values"
+                + "(?,?,?,?,?,?,?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);) {
@@ -65,6 +66,8 @@ public class AgendaDAO implements iAgendaDAO {
             ps.setString(3, email.getPassword());
             ps.setString(4, email.getURL());
             ps.setInt(5, email.getPort());
+            ps.setBoolean(6, email.getIsDefault());
+            ps.setInt(7, email.getReminder());
             records = ps.executeUpdate();
 //            ResultSet rs = ps.getGeneratedKeys();
 //            String name = "";
@@ -88,7 +91,7 @@ public class AgendaDAO implements iAgendaDAO {
         int records;
 
         String query = "INSERT INTO APPOINTMENT (TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM) values (?,?,?,?,?,?,?,?,?)";
+                + "APPOINTMENTGROUP,ALARM) values (?,?,?,?,?,?,?,?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);) {
@@ -99,8 +102,7 @@ public class AgendaDAO implements iAgendaDAO {
             ps.setString(5, appointment.getDetails());
             ps.setBoolean(6, appointment.getWholeDay());
             ps.setInt(7, appointment.getAppointmentGroup());
-            ps.setInt(8, appointment.getReminder());
-            ps.setBoolean(9, appointment.getAlarm());
+            ps.setBoolean(8, appointment.getAlarm());
             records = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             int recordId = -1;
@@ -152,7 +154,7 @@ public class AgendaDAO implements iAgendaDAO {
     public List<Email> findAllEmails() throws SQLException {
         List<Email> emails = new ArrayList<>();
 
-        String query = "SELECT UNAME,EMAIL,PASSWORD,URL,PORT FROM EMAIL";
+        String query = "SELECT UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);
@@ -175,7 +177,7 @@ public class AgendaDAO implements iAgendaDAO {
     public Email findEmail(String name) throws SQLException {
         Email email = new Email();
 
-        String query = "SELECT UNAME,EMAIL,PASSWORD,URL,PORT FROM EMAIL "
+        String query = "SELECT UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL "
                 + "WHERE UNAME=?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
@@ -192,6 +194,29 @@ public class AgendaDAO implements iAgendaDAO {
         return email;
 
     }
+    
+    @Override
+    public Email findEmailByDefault(Boolean isDefault) throws SQLException {
+        Email email = new Email();
+        
+        String query = "SELECT UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL "
+                + "WHERE ISDEFAULT=?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+                PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setBoolean(1, isDefault);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    email = makeEmail(rs);
+                }
+
+            }
+        }
+        return email;
+
+        
+    }
 
     //----APPOINTMENT----
     /**
@@ -204,7 +229,7 @@ public class AgendaDAO implements iAgendaDAO {
         List<Appointment> apts = new ArrayList<>();
 
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM FROM APPOINTMENT";
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);
@@ -228,12 +253,12 @@ public class AgendaDAO implements iAgendaDAO {
         Appointment apt = new Appointment();
 
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM FROM APPOINTMENT WHERE ID=?";
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE ID=?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);) {
             ps.setInt(1, id);
-
+         
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     apt = makeApt(rs);
@@ -255,7 +280,7 @@ public class AgendaDAO implements iAgendaDAO {
         Appointment apt = new Appointment();
 
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM FROM APPOINTMENT WHERE TITLE=?";
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE TITLE=?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);) {
@@ -278,25 +303,24 @@ public class AgendaDAO implements iAgendaDAO {
      * @throws SQLException 
      */
     @Override
-    public Appointment findAppointmentByStartTime(Timestamp starttime) throws SQLException {
-        Appointment apt = new Appointment();
+    public List<Appointment> findAppointmentByStartTime(Timestamp starttime) throws SQLException {
+        List<Appointment> apts = new ArrayList<>();
 
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM FROM APPOINTMENT WHERE STARTTIME=?";
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE STARTTIME=?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);) {
             ps.setTimestamp(1, starttime);
 
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    apt = makeApt(rs);
-                }
-
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) { //Creating new Appointment objects and placing into collection
+                Appointment apt = makeApt(rs);
+                apts.add(apt);
             }
-        }
-        return apt;
-
+        
+        return apts;        
+    }
     }
 
     /**
@@ -310,7 +334,7 @@ public class AgendaDAO implements iAgendaDAO {
         Appointment apt = new Appointment();
 
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM FROM APPOINTMENT WHERE ENDTIME=?";
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE ENDTIME=?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);) {
@@ -325,6 +349,43 @@ public class AgendaDAO implements iAgendaDAO {
         }
         return apt;
 
+    }
+    
+    @Override
+    public List<Appointment> findAppointmentsFromStartBetween5Mins(Timestamp starttime) throws SQLException {
+        List<Appointment> apts = new ArrayList<>();
+        
+        Timestamp plus5 = Timestamp.valueOf(starttime.toLocalDateTime().plusMinutes(5));
+        Timestamp minus5 = Timestamp.valueOf(starttime.toLocalDateTime().minusMinutes(5));
+
+        log.debug("plus5: " + plus5);
+        log.debug("minus5: " + minus5);
+        
+        String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE STARTTIME BETWEEN ? AND ?";
+        
+        log.debug("query suspect: " + query);
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement ps = conn.prepareStatement(query);) {
+            log.debug("conn done");
+            ps.setTimestamp(1, minus5);
+            log.debug("minus5 set " + plus5.toString());
+            ps.setTimestamp(2, plus5);
+            log.debug("plus5 set " + minus5.toString());
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+            log.debug("rs exe");
+            
+            while (rs.next()) { //Creating new Appointment objects and placing into collection
+                log.debug("aptmaking");
+                Appointment apt = makeApt(rs);
+                log.debug("apt: " + apt.getTitle());
+                log.debug("apt: " + apt.getStartTime());
+                apts.add(apt);
+            }
+        
+        return apts;        
+        }
     }
     
     /**
@@ -349,7 +410,7 @@ public class AgendaDAO implements iAgendaDAO {
         List<Appointment> apts = new ArrayList<>();
         
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM FROM APPOINTMENT WHERE "
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE "
                 + "((STARTTIME BETWEEN ? AND ?) AND (ENDTIME BETWEEN ? AND ?))";
         
         try (Connection conn = DriverManager.getConnection(url, user, password);
@@ -393,7 +454,7 @@ public class AgendaDAO implements iAgendaDAO {
         List<Appointment> apts = new ArrayList<>();
         
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM FROM APPOINTMENT WHERE "
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE "
                 + "STARTTIME BETWEEN ? AND ?";
         
         try (Connection conn = DriverManager.getConnection(url, user, password);
@@ -436,7 +497,7 @@ public class AgendaDAO implements iAgendaDAO {
         List<Appointment> apts = new ArrayList<>();
         
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
-                + "APPOINTMENTGROUP,REMINDER,ALARM FROM APPOINTMENT WHERE "
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE "
                 + "STARTTIME BETWEEN ? AND ?";
         
         try (Connection conn = DriverManager.getConnection(url, user, password);
@@ -518,15 +579,18 @@ public class AgendaDAO implements iAgendaDAO {
         int records;
 
         String query = "UPDATE EMAIL SET EMAIL = ?, PASSWORD = ?,"
-                + "URL = ?, PORT = ? WHERE UNAME = ?";
+                + "URL = ?, PORT = ?, ISDEFAULT = ?, REMINDER = ? WHERE UNAME = ?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
-                PreparedStatement ps = conn.prepareStatement(query);) {
+            PreparedStatement ps = conn.prepareStatement(query);) {
             ps.setString(1, email.getEmail());
             ps.setString(2, email.getPassword());
             ps.setString(3, email.getURL());
             ps.setInt(4, email.getPort());
-            ps.setString(5, email.getName());
+            ps.setBoolean(5, FALSE);
+            ps.setInt(6, email.getReminder());
+            ps.setString(7, email.getName());
+
 
             records = ps.executeUpdate();
         } catch (SQLException ex){
@@ -549,7 +613,7 @@ public class AgendaDAO implements iAgendaDAO {
 
         String query = "UPDATE APPOINTMENT SET TITLE = ?, LOCATION = ?,"
                 + "STARTTIME = ?, ENDTIME = ?, DETAILS = ?, WHOLEDAY = ?,"
-                + "APPOINTMENTGROUP = ?, REMINDER = ?, ALARM = ?"
+                + "APPOINTMENTGROUP = ?, ALARM = ?"
                 + " WHERE ID = ?";
 
         log.debug("query suspect: " + query);
@@ -563,9 +627,8 @@ public class AgendaDAO implements iAgendaDAO {
             ps.setString(5, appointment.getDetails());
             ps.setBoolean(6, appointment.getWholeDay());
             ps.setInt(7, appointment.getAppointmentGroup());
-            ps.setInt(8, appointment.getReminder());
-            ps.setBoolean(9, appointment.getAlarm());
-            ps.setInt(10, appointment.getId());
+            ps.setBoolean(8, appointment.getAlarm());
+            ps.setInt(9, appointment.getId());
             records = ps.executeUpdate();
         } 
         catch(SQLException ex) {
@@ -590,7 +653,7 @@ public class AgendaDAO implements iAgendaDAO {
                 + "COLOR = ? WHERE GROUPNUMBER = ?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
-                PreparedStatement ps = conn.prepareStatement(query);) {
+            PreparedStatement ps = conn.prepareStatement(query);) {
             ps.setString(1, appointmentGroup.getGroupName());
             ps.setString(2, appointmentGroup.getColor());
             ps.setInt(3, appointmentGroup.getGroupNumber());
@@ -687,7 +750,8 @@ public class AgendaDAO implements iAgendaDAO {
         }
         return records;
     }
-
+    
+    
     /**
      * Email object creator
      * @param rs
@@ -701,6 +765,8 @@ public class AgendaDAO implements iAgendaDAO {
         email.setPassword(rs.getString("PASSWORD"));
         email.setURL(rs.getString("URL"));
         email.setPort(rs.getInt("PORT"));
+        email.setIsDefault(rs.getBoolean("ISDEFAULT"));
+        email.setReminder(rs.getInt("REMINDER"));
         return email;
     }
 
@@ -720,7 +786,6 @@ public class AgendaDAO implements iAgendaDAO {
         apt.setDetails(rs.getString("DETAILS"));
         apt.setWholeDay(rs.getBoolean("WHOLEDAY"));
         apt.setAppointmentGroup(rs.getInt("APPOINTMENTGROUP"));
-        apt.setReminder(rs.getInt("REMINDER"));
         apt.setAlarm(rs.getBoolean("ALARM"));
         return apt;
     }

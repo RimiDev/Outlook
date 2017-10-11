@@ -8,6 +8,7 @@ package com.rimidev.jam_1537681_1.entities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.*;
 
 /**
  *
@@ -16,55 +17,70 @@ import java.util.Objects;
 public class AppointmentGroup {
 
     //AppointmentGroup fields
-    private int groupNumber;
-    private String groupName;
-    private String color;
+    private final IntegerProperty groupNumber;
+    private final StringProperty groupName;
+    private final StringProperty color;
 
     //Default Constructor setting nothing.
     public AppointmentGroup() {
-        this(-1, "", "");
+        this.groupNumber = new SimpleIntegerProperty(0);
+        this.groupName = new SimpleStringProperty("");
+        this.color = new SimpleStringProperty("");
     }
 
     //Constructor initilizing as wanted
     public AppointmentGroup(int groupNumber, String groupName, String color) {
-        this.groupNumber = groupNumber;
-        this.groupName = groupName;
-        this.color = color;
+        this.groupNumber = new SimpleIntegerProperty(groupNumber);
+        this.groupName = new SimpleStringProperty(groupName);
+        this.color = new SimpleStringProperty(color);
     }
 
     /**
      * Simple setters and getters
      */
-    public int getGroupNumber() {
-        return groupNumber;
+    public final int getGroupNumber() {
+        return groupNumber.get();
     }
 
     public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
+        this.groupNumber.set(groupNumber);
     }
 
     public String getGroupName() {
-        return groupName;
+        return groupName.get();
     }
 
     public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
+        this.groupName.set(groupName);
+    }    
 
     public String getColor() {
-        return color;
+        return color.get();
     }
 
     public void setColor(String color) {
-        this.color = color;
+        this.color.set(color);
     }
 
+    //binds
+    public final IntegerProperty groupNumberProperty() {
+        return groupNumber;
+    }
+    
+    public final StringProperty groupNameProperty() {
+        return groupName;
+    }
+    
+    public final StringProperty colorProperty() {
+        return color;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + this.groupNumber;
-        hash = 59 * hash + Objects.hashCode(this.groupName);
-        hash = 59 * hash + Objects.hashCode(this.color);
+        hash = 59 * hash + this.groupNumber.get();
+        hash = 59 * hash + Objects.hashCode(this.groupName.get());
+        hash = 59 * hash + Objects.hashCode(this.color.get());
         return hash;
     }
 
@@ -80,13 +96,13 @@ public class AppointmentGroup {
             return false;
         }
         final AppointmentGroup other = (AppointmentGroup) obj;
-        if (this.groupNumber != other.groupNumber) {
+        if (this.groupNumber.get() != other.groupNumber.get()) {
             return false;
         }
-        if (!Objects.equals(this.groupName, other.groupName)) {
+        if (!Objects.equals(this.groupName.get(), other.groupName.get())) {
             return false;
         }
-        if (!Objects.equals(this.color, other.color)) {
+        if (!Objects.equals(this.color.get(), other.color.get())) {
             return false;
         }
         return true;
