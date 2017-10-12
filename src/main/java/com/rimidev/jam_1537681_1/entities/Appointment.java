@@ -37,8 +37,8 @@ public class Appointment {
         this.id = new SimpleIntegerProperty(0);
         this.title = new SimpleStringProperty("");
         this.location = new SimpleStringProperty("");
-        this.startTime = new SimpleObjectProperty("");
-        this.endTime = new SimpleObjectProperty("");
+        this.startTime = new SimpleObjectProperty(Timestamp.from(Instant.now()));
+        this.endTime = new SimpleObjectProperty(Timestamp.from(Instant.now()));
         this.details = new SimpleStringProperty("");
         this.wholeDay = new SimpleBooleanProperty(false);
         this.appointmentGroup = new SimpleIntegerProperty(0);
@@ -61,7 +61,8 @@ public class Appointment {
 
     /**
      * Simple setters and getters
-     * @return 
+     *
+     * @return
      */
     public final int getId() {
         return id.get();
@@ -134,45 +135,43 @@ public class Appointment {
     public void setAlarm(boolean alarm) {
         this.alarm.set(alarm);
     }
-    
+
     //binding
     public final IntegerProperty idProperty() {
         return id;
     }
-    
+
     public final StringProperty titleProperty() {
         return title;
     }
-    
+
     public final StringProperty locationProperty() {
         return location;
     }
-    
+
     public final ObjectProperty startTimeProperty() {
         return startTime;
     }
-    
+
     public final ObjectProperty endTimeProperty() {
         return endTime;
     }
-    
+
     public final StringProperty detailsProperty() {
         return details;
     }
-    
+
     public final BooleanProperty wholeDayProperty() {
         return wholeDay;
     }
-    
+
     public final IntegerProperty appointmentGroupProperty() {
         return appointmentGroup;
     }
-    
+
     public final BooleanProperty alarmProperty() {
         return alarm;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -235,6 +234,5 @@ public class Appointment {
     public String toString() {
         return "Appointment{" + "id=" + id + ", title=" + title + ", location=" + location + ", startTime=" + startTime + ", endTime=" + endTime + ", details=" + details + ", wholeDay=" + wholeDay + ", appointmentGroup=" + appointmentGroup + ", alarm=" + alarm + '}';
     }
-
 
 } // End of Appointment class

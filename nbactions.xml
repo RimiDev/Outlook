@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
-        <action>
-            <actionName>CUSTOM-run</actionName>
-            <displayName>run</displayName>
-        </action>
-    </actions>
+    <action>
+        <actionName>CUSTOM-run</actionName>
+        <displayName>run</displayName>
+    </action>
+    <action>
+        <actionName>CUSTOM-RunK</actionName>
+        <displayName>RunK</displayName>
+        <properties>
+            <skipTests>true</skipTests>
+        </properties>
+    </action>
+</actions>
