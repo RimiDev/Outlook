@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS APPOINTMENTGROUP;
 DROP TABLE IF EXISTS APPOINTMENT;
 
 CREATE TABLE EMAIL (
-	UNAME varchar(60) PRIMARY KEY,
+        ID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	UNAME varchar(60) NOT NULL,
 	EMAIL varchar(60) NOT NULL,
 	PASSWORD varchar(60) NOT NULL,
 	URL varchar(60) NOT NULL,
@@ -90,7 +91,7 @@ INSERT INTO APPOINTMENT (TITLE, LOCATION, STARTTIME, ENDTIME, DETAILS, WHOLEDAY,
 ("Buy school books", "Dawson College", "2017-08-30 8:30:00", "2017-08-30 9:30:00", "Be the first in line!", 0, 2, 1),
 ("Date time!", "Studio Movie", "2017-09-30 21:30:00", "2017-09-30 2:30:00", "Wear the suit she gave you!", 0, 3, 1),
 ("Dance class", "Dawson College", "2017-09-30 10:30:00", "2017-09-30 12:30:00", "Bring the appropriate shoes", 0, 1, 1),
-("Buy gym shoes", "Alexis Nihon", "2017-08-30 11:30:00", "2017-08-30 13:30:00", "Don't forget the coupon!", 0, 2, 1);
+("Buy gym shoes", "Alexis Nihon", "2017-08-30 11:30:00", "2017-08-30 13:30:00", "Don't forget the coupon!", 1, 2, 1);
 
 
 INSERT INTO EMAIL (UNAME, EMAIL, PASSWORD, URL, PORT, ISDEFAULT, REMINDER) values

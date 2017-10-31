@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<DialogPane fx:id="configDialog" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rimidev.jam_1537681_1.controllers.ConfigurationController">
+    <content>
+<GridPane prefHeight="343.0" prefWidth="344.0">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="128.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="182.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="218.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="218.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="238.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="215.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="215.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="324.0" text="%DatabaseConfig">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <Label text="%DBname" GridPane.rowIndex="2">
+         <padding>
+            <Insets left="15.0" />
+         </padding></Label>
+      <Label text="%DBurl" GridPane.rowIndex="3">
+         <padding>
+            <Insets left="15.0" />
+            <Insets left="15.0" />
+         </padding></Label>
+      <Label text="%DBuser" GridPane.rowIndex="4">
+         <padding>
+            <Insets left="15.0" />
+         </padding></Label>
+      <Label text="%DBpassword" GridPane.rowIndex="5">
+         <padding>
+            <Insets left="15.0" />
+         </padding></Label>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onClear" text="%Clear" />
+            <Button mnemonicParsing="false" onAction="#onSave" text="%Save" />
+            <Button mnemonicParsing="false" onAction="#onExit" text="%Exit" />
+         </children>
+      </HBox>
+      <TextField fx:id="dbName" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="dbUrl" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="dbUser" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </TextField>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <children>
+            <Label fx:id="set" prefHeight="43.0" prefWidth="119.0" textFill="RED" />
+         </children>
+      </HBox>
+      <PasswordField fx:id="dbPassword" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </PasswordField>
+   </children>
+</GridPane>
+    </content>
+</DialogPane>

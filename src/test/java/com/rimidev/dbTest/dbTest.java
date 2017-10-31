@@ -2,7 +2,7 @@ package com.rimidev.dbTest;
 
 import com.rimidev.jam_1537681_1.entities.AppointmentGroup;
 import com.rimidev.jam_1537681_1.entities.Appointment;
-import com.rimidev.jam_1537681_1.entities.Email;
+import com.rimidev.jam_1537681_1.entities.SMTP;
 import com.rimidev.jam_1537681_1.persistence.AgendaDAO;
 import com.rimidev.jam_1537681_1.persistence.iAgendaDAO;
 import java.io.BufferedReader;
@@ -17,12 +17,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -34,18 +33,21 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Unit test for AgendaDB database
- *
  * @Maxime Lacasse
- * @version 1.2
+ * @version 1.4
  */
 
-@Ignore
+
 public class dbTest {
     
-    //Hard-coded parameters for the connection to the MySql database
-    private final String url = "jdbc:mysql://localhost:3306/AGENDAdb?autoReconnect=true&useSSL=false";
-    private final String user = "Rimi";
-    private final String password = "RimBoy";
+    //Parameters for the connection to the MySql database
+    iAgendaDAO agenda = new AgendaDAO();
+    Properties dbCreds = agenda.getDBcredits();   
+    
+    private final String url = dbCreds.getProperty("url");
+    private final String user = dbCreds.getProperty("user");
+    private final String password = dbCreds.getProperty("password");
+    
     //Logger for debugging.
     private final Logger log = LoggerFactory.getLogger(
             this.getClass().getName());
@@ -56,7 +58,7 @@ public class dbTest {
     public void testEmailCreate() throws SQLException {
         iAgendaDAO agenda = new AgendaDAO();
 
-        Email email = new Email();
+        SMTP email = new SMTP();
         email.setName("TestName");
         email.setEmail("TestEmail@gmail.com");
         email.setPassword("TestPassword");
@@ -66,7 +68,7 @@ public class dbTest {
         email.setReminder(1);
         int records = agenda.create(email);
 
-        Email emailTest = agenda.findEmail(email.getName());
+        SMTP emailTest = agenda.findEmail(email.getName());
 
         assertEquals("A record was created", email, emailTest);
 
@@ -76,7 +78,7 @@ public class dbTest {
     public void testEmailCreateWithOneNullParam() throws SQLException {
         iAgendaDAO agenda = new AgendaDAO();
         
-        Email email = new Email();
+        SMTP email = new SMTP();
         email.setName("TestNameFailure");
         email.setEmail("TestEmailFailure@gmail.com");
         email.setPassword(null); //Should not get past this.
@@ -93,7 +95,7 @@ public class dbTest {
     @Test
     public void testFindAllEmails() throws SQLException {
         iAgendaDAO agenda = new AgendaDAO();
-        List<Email> email = agenda.findAllEmails();
+        List<SMTP> email = agenda.findAllEmails();
 
         assertEquals("# of Emails", 3, email.size());
     }
@@ -102,7 +104,7 @@ public class dbTest {
     public void testFindEmail() throws SQLException {
         iAgendaDAO agenda = new AgendaDAO();
         
-        Email email = new Email();
+        SMTP email = new SMTP();
         email.setName("TestName");
         email.setEmail("TestEmailUpdate@gmail.com");
         email.setPassword("TestNameUpdatePassword");
@@ -112,7 +114,7 @@ public class dbTest {
         email.setReminder(1);
         agenda.create(email);
         
-        Email emailTest = new Email();
+        SMTP emailTest = new SMTP();
         emailTest = agenda.findEmail("TestName");
         
         assertEquals("Emails matched", email, emailTest);
@@ -123,7 +125,7 @@ public class dbTest {
     public void testFindEmailByDefault() throws SQLException {
         iAgendaDAO agenda = new AgendaDAO();
         
-        Email email =  new Email();
+        SMTP email =  new SMTP();
         email.setName("Max Lacasse");
         email.setEmail("JAM1537681@gmail.com");
         email.setPassword("JAMproject");
@@ -132,7 +134,7 @@ public class dbTest {
         email.setIsDefault(TRUE);
         email.setReminder(120);
         
-        Email emailTest = new Email();
+        SMTP emailTest = new SMTP();
         emailTest = agenda.findEmailByDefault(TRUE);
         
         assertEquals("Email with default true found", email, emailTest);
@@ -145,7 +147,7 @@ public class dbTest {
     public void testUpdateEmail() throws SQLException {
         iAgendaDAO agenda = new AgendaDAO();
         
-        Email email =  new Email();
+        SMTP email =  new SMTP();
         email.setName("Sebastian Gregoire");
         email.setEmail("TestEmailUpdate@gmail.com");
         email.setPassword("TestNameUpdatePassword");
@@ -164,7 +166,7 @@ public class dbTest {
     public void testUpdateEmailWithTooLongEmail() throws SQLException {
         iAgendaDAO agenda = new AgendaDAO();
         
-        Email email =  new Email();
+        SMTP email =  new SMTP();
         email.setName("Sebastian Gregoire"); 
         email.setEmail("THISEMAILISGOINGTOBEWAYTOLONGIMJUSTTYPINGUNTILICANTANYMORE@GMAIL.COM");
         email.setPassword("TestNameUpdatePassword");
@@ -183,7 +185,7 @@ public class dbTest {
     public void testDeleteEmail() throws SQLException {
         iAgendaDAO agenda = new AgendaDAO();
         
-        Email email = new Email();
+        SMTP email = new SMTP();
         email.setName("Sebby Brown"); 
         email.setEmail("sebby@gmail.com");
         email.setPassword("TestNameUpdatePassword");

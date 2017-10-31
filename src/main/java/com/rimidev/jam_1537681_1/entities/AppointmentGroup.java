@@ -1,18 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.rimidev.jam_1537681_1.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.*;
 
 /**
- *
- * @author Max
+ * The appointment group bean that represents all the appointment groups in the program.
+ * @author Maxime Lacasse
+ * @version 1.5
  */
 public class AppointmentGroup {
 
@@ -75,6 +69,7 @@ public class AppointmentGroup {
         return color;
     }
     
+    //Hash
     @Override
     public int hashCode() {
         int hash = 7;
@@ -84,6 +79,7 @@ public class AppointmentGroup {
         return hash;
     }
 
+    //equals
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -108,6 +104,7 @@ public class AppointmentGroup {
         return true;
     }
 
+    //Simple toString
     @Override
     public String toString() {
         return "AppointmentGroup{" + "groupNumber=" + groupNumber + ", groupName=" + groupName + ", color=" + color + '}';

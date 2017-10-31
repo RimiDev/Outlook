@@ -7,7 +7,8 @@ package com.rimidev.jam_1537681_1.persistence;
 
 import com.rimidev.jam_1537681_1.entities.Appointment;
 import com.rimidev.jam_1537681_1.entities.AppointmentGroup;
-import com.rimidev.jam_1537681_1.entities.Email;
+import com.rimidev.jam_1537681_1.entities.SMTP;
+import java.io.FileInputStream;
 import static java.lang.Boolean.FALSE;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,22 +23,25 @@ import java.time.LocalTime;
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * This class implements the iAgendaDAO interface!
  * The functionality of the Agenda Database.
- * @author Max
- * @version 1.2
+ * @author Maxime Lacasse
+ * @version 1.5
  */
 public class AgendaDAO implements iAgendaDAO {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    
+    Properties dbCreds = this.getDBcredits();
 
-    private final String url = "jdbc:mysql://localhost:3306/AGENDAdb?autoReconnect=true&useSSL=false";
-    private final String user = "Rimi";
-    private final String password = "RimBoy";
+    private final String url = dbCreds.getProperty("url");
+    private final String user = dbCreds.getProperty("user");
+    private final String password = dbCreds.getProperty("password");
 
     //Default Constructor
     public AgendaDAO() {
@@ -47,13 +51,13 @@ public class AgendaDAO implements iAgendaDAO {
     //CREATE--------------------------------------------------------------------
     //----EMAIL----- 
     /**
-     * Creates a record with the Email object's values
+     * Creates a record with the SMTP object's values
      * @param email
      * @return records -> 1 - row created || 0 - row not created
      * @throws SQLException 
      */
     @Override
-    public int create(Email email) throws SQLException {
+    public int create(SMTP email) throws SQLException {
         int records;
 
         String query = "INSERT INTO EMAIL (UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT, REMINDER) values"
@@ -69,12 +73,6 @@ public class AgendaDAO implements iAgendaDAO {
             ps.setBoolean(6, email.getIsDefault());
             ps.setInt(7, email.getReminder());
             records = ps.executeUpdate();
-//            ResultSet rs = ps.getGeneratedKeys();
-//            String name = "";
-//            if (rs.next()){
-//                 name = rs.getString(1);
-//            }
-//            email.setName(name);
         }
         return records;
     }
@@ -146,21 +144,21 @@ public class AgendaDAO implements iAgendaDAO {
     //READ----------------------------------------------------------------------
     //----EMAIL-----
     /**
-     * Finds all the Email objects from the database and puts it into a List.
+     * Finds all the SMTP objects from the database and puts it into a List.
      * @return List<Email>
      * @throws SQLException 
      */
     @Override
-    public List<Email> findAllEmails() throws SQLException {
-        List<Email> emails = new ArrayList<>();
+    public List<SMTP> findAllEmails() throws SQLException {
+        List<SMTP> emails = new ArrayList<>();
 
-        String query = "SELECT UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL";
+        String query = "SELECT ID,UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);
                 ResultSet rs = ps.executeQuery()) {
             while (rs.next()) { //Creating new email objects and placing into collection
-                Email email = makeEmail(rs);
+                SMTP email = makeEmail(rs);
                 emails.add(email);
             }
         }
@@ -168,14 +166,14 @@ public class AgendaDAO implements iAgendaDAO {
     } // End of findAllEmails
 
     /**
-     * Finds an Email object with the specified name.
+     * Finds an SMTP object with the specified name.
      * @param name
-     * @return Email
+     * @return SMTP
      * @throws SQLException 
      */
     @Override
-    public Email findEmail(String name) throws SQLException {
-        Email email = new Email();
+    public SMTP findEmail(String name) throws SQLException {
+        SMTP email = new SMTP();
 
         String query = "SELECT UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL "
                 + "WHERE UNAME=?";
@@ -195,11 +193,43 @@ public class AgendaDAO implements iAgendaDAO {
 
     }
     
+    /**
+     * Finds an email by a given Id.
+     * @param id
+     * @return SMTP
+     * @throws SQLException 
+     */
     @Override
-    public Email findEmailByDefault(Boolean isDefault) throws SQLException {
-        Email email = new Email();
+    public SMTP findEmailById(int id) throws SQLException {
+        SMTP email = new SMTP();
         
-        String query = "SELECT UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL "
+        String query = "SELECT ID,UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL "
+                + "WHERE ID =?";
+        
+        try (Connection conn = DriverManager.getConnection(url,user,password);
+                PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setInt(1,id);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    email = makeEmail(rs);
+                }
+            }
+        }
+        return email;
+    }
+    
+    /**
+     * Finds an email by the boolean isDefault.
+     * @param isDefault
+     * @return SMTP
+     * @throws SQLException 
+     */
+    @Override
+    public SMTP findEmailByDefault(Boolean isDefault) throws SQLException {
+        SMTP email = new SMTP();
+        
+        String query = "SELECT ID,UNAME,EMAIL,PASSWORD,URL,PORT,ISDEFAULT,REMINDER FROM EMAIL "
                 + "WHERE ISDEFAULT=?";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
@@ -213,9 +243,7 @@ public class AgendaDAO implements iAgendaDAO {
 
             }
         }
-        return email;
-
-        
+        return email;       
     }
 
     //----APPOINTMENT----
@@ -321,8 +349,36 @@ public class AgendaDAO implements iAgendaDAO {
         
         return apts;        
     }
-    }
+  }
+    
+    /**
+     * Finds 1 or more appointments depending on the starttime.
+     * @param starttime
+     * @return List<Email>
+     * @throws SQLException 
+     */
+    @Override
+    public List<Appointment> findAppointmentByStartTime(LocalTime starttime) throws SQLException {
+        List<Appointment> apts = new ArrayList<>();
+        
+        Timestamp time = Timestamp.valueOf(String.valueOf(starttime));
 
+        String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,"
+                + "APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE STARTTIME=?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+                PreparedStatement ps = conn.prepareStatement(query);) {           
+            ps.setTimestamp(1, time);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) { //Creating new Appointment objects and placing into collection
+                Appointment apt = makeApt(rs);
+                apts.add(apt);
+            }
+        
+        return apts;        
+    }
+    }
     /**
      * Finds the Appointment object with the specified end time
      * @param endtime
@@ -351,6 +407,13 @@ public class AgendaDAO implements iAgendaDAO {
 
     }
     
+    /**
+     * Finds 1 or more appointments depending on the 5-startTime AND 5+startTime
+     * Used for SMTPsend incase of time errors.
+     * @param starttime
+     * @return List<Email>
+     * @throws SQLException 
+     */
     @Override
     public List<Appointment> findAppointmentsFromStartBetween5Mins(Timestamp starttime) throws SQLException {
         List<Appointment> apts = new ArrayList<>();
@@ -358,29 +421,76 @@ public class AgendaDAO implements iAgendaDAO {
         Timestamp plus5 = Timestamp.valueOf(starttime.toLocalDateTime().plusMinutes(5));
         Timestamp minus5 = Timestamp.valueOf(starttime.toLocalDateTime().minusMinutes(5));
 
-        log.debug("plus5: " + plus5);
-        log.debug("minus5: " + minus5);
-        
         String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE STARTTIME BETWEEN ? AND ?";
-        
-        log.debug("query suspect: " + query);
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
             PreparedStatement ps = conn.prepareStatement(query);) {
-            log.debug("conn done");
             ps.setTimestamp(1, minus5);
-            log.debug("minus5 set " + plus5.toString());
             ps.setTimestamp(2, plus5);
-            log.debug("plus5 set " + minus5.toString());
-            System.out.println(ps);
             ResultSet rs = ps.executeQuery();
-            log.debug("rs exe");
             
             while (rs.next()) { //Creating new Appointment objects and placing into collection
-                log.debug("aptmaking");
                 Appointment apt = makeApt(rs);
-                log.debug("apt: " + apt.getTitle());
-                log.debug("apt: " + apt.getStartTime());
+                apts.add(apt);
+            }
+        
+        return apts;        
+        }
+    }
+    
+    /**
+     * Finds 1 or more appointments depending on startTime AND startTime+29
+     * Used in daily view.
+     * @param starttime
+     * @return
+     * @throws SQLException 
+     */
+     @Override
+    public List<Appointment> findAppointmentsFromStartBetween29Mins(Timestamp starttime) throws SQLException {
+        List<Appointment> apts = new ArrayList<>();
+        
+        Timestamp plus29 = Timestamp.valueOf(starttime.toLocalDateTime().plusMinutes(29));
+        
+        String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE STARTTIME BETWEEN ? AND ?";
+        
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setTimestamp(1, starttime);
+            ps.setTimestamp(2, plus29);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) { //Creating new Appointment objects and placing into collection
+                Appointment apt = makeApt(rs);
+                apts.add(apt);
+            }
+        
+        return apts;        
+        }
+    }
+    /**
+     * For the autoSendEmail thread that automatically sends emails to the default email
+     * according to LocalDateTime.now() TO LocalDateTime.now().plusHours(2);
+     * @param time
+     * @return
+     * @throws SQLException 
+     */
+    @Override
+    public List<Appointment> findAppointmentsFromStartBetween2Hours(LocalDateTime time) throws SQLException {
+        List<Appointment> apts = new ArrayList<>();       
+        
+        Timestamp plus2hrs = Timestamp.valueOf(time.plusHours(2));
+        
+        String query = "SELECT ID,TITLE,LOCATION,STARTTIME,ENDTIME,DETAILS,WHOLEDAY,APPOINTMENTGROUP,ALARM FROM APPOINTMENT WHERE STARTTIME BETWEEN ? AND ?";
+        
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+            PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setTimestamp(1, Timestamp.valueOf(time));
+            ps.setTimestamp(2, plus2hrs);
+            ResultSet rs = ps.executeQuery();
+            
+            
+            while (rs.next()) { //Creating new Appointment objects and placing into collection
+                Appointment apt = makeApt(rs);
                 apts.add(apt);
             }
         
@@ -403,8 +513,6 @@ public class AgendaDAO implements iAgendaDAO {
         LocalDateTime LDTendOfDay = LocalDateTime.of(day, LocalTime.parse(endofDay));
         Timestamp tsStartofDay = Timestamp.valueOf(LDTstartOfDay);
         Timestamp tsEndofDay = Timestamp.valueOf(LDTendOfDay);
-        
-        log.debug("Start: " + tsStartofDay + " End: " + tsEndofDay);
         
 
         List<Appointment> apts = new ArrayList<>();
@@ -444,11 +552,8 @@ public class AgendaDAO implements iAgendaDAO {
         LocalDateTime LDTstartOfWeek = LocalDateTime.of(weekStart,LocalTime.parse(startofDay));
         LocalDateTime LDTendOfWeek = LocalDateTime.of(weekStart, LocalTime.parse(endofDay));
         LDTendOfWeek = LDTendOfWeek.plusDays(7);
-        log.debug("value of end: " + LDTendOfWeek);
         Timestamp tsStartofWeek = Timestamp.valueOf(LDTstartOfWeek);
-        Timestamp tsEndofWeek = Timestamp.valueOf(LDTendOfWeek);
-        
-        log.debug("Start: " + tsStartofWeek + " End: " + tsEndofWeek);
+        Timestamp tsEndofWeek = Timestamp.valueOf(LDTendOfWeek);      
         
 
         List<Appointment> apts = new ArrayList<>();
@@ -487,11 +592,10 @@ public class AgendaDAO implements iAgendaDAO {
         LocalDate EndOfMonth = monthStart.with(lastDayOfMonth());
         LocalDateTime LDTendOfMonth = LocalDateTime.of(EndOfMonth, LocalTime.parse(endofDay));
 
-        log.debug("value of end month: " + EndOfMonth + " Value of LDTEnd: " + LDTendOfMonth );
+
         Timestamp tsStartofMonth = Timestamp.valueOf(LDTstartOfMonth);
         Timestamp tsEndofMonth = Timestamp.valueOf(LDTendOfMonth);
         
-        log.debug("Start: " + tsStartofMonth + " End: " + tsEndofMonth);
         
 
         List<Appointment> apts = new ArrayList<>();
@@ -575,7 +679,7 @@ public class AgendaDAO implements iAgendaDAO {
      * @throws SQLException 
      */
     @Override
-    public int update(Email email) throws SQLException {
+    public int update(SMTP email) throws SQLException {
         int records;
 
         String query = "UPDATE EMAIL SET EMAIL = ?, PASSWORD = ?,"
@@ -615,8 +719,6 @@ public class AgendaDAO implements iAgendaDAO {
                 + "STARTTIME = ?, ENDTIME = ?, DETAILS = ?, WHOLEDAY = ?,"
                 + "APPOINTMENTGROUP = ?, ALARM = ?"
                 + " WHERE ID = ?";
-
-        log.debug("query suspect: " + query);
         
         try (Connection conn = DriverManager.getConnection(url, user, password);
             PreparedStatement ps = conn.prepareStatement(query);) {
@@ -665,7 +767,7 @@ public class AgendaDAO implements iAgendaDAO {
     //DELETE--------------------------------------------------------------------
     //----EMAIL----
     /**
-     * Deletes a Email record in the database
+     * Deletes a SMTP record in the database
      * @param name
      * @return records -> 1 - row deleted || 0 - row not deleted
      * @throws SQLException 
@@ -685,6 +787,26 @@ public class AgendaDAO implements iAgendaDAO {
         }
             return records;
     }
+    
+    /**
+     * Deletes an email by the given Id.
+     * @param id
+     * @return records
+     * @throws SQLException 
+     */
+    @Override
+    public int deleteEmailById(int id) throws SQLException {
+        int records; 
+        
+        String query = "DELETE FROM EMAIL WHERE ID=?";
+        
+        try (Connection conn = DriverManager.getConnection(url,user,password);
+                PreparedStatement ps = conn.prepareStatement(query);) {
+            ps.setInt(1, id);
+            records = ps.executeUpdate();
+        }
+        return records;
+    }
 
     //----APPOINTMENT----
     /**
@@ -698,7 +820,6 @@ public class AgendaDAO implements iAgendaDAO {
         int records;
         
         String query = "DELETE FROM APPOINTMENT WHERE ID=?";
-        log.debug("query suspect: " + query);
         
         try (Connection conn = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = conn.prepareStatement(query);) {
@@ -753,13 +874,14 @@ public class AgendaDAO implements iAgendaDAO {
     
     
     /**
-     * Email object creator
+     * SMTP object creator
      * @param rs
-     * @return Email
+     * @return SMTP
      * @throws SQLException 
      */
-    private Email makeEmail(ResultSet rs) throws SQLException {
-        Email email = new Email();
+    private SMTP makeEmail(ResultSet rs) throws SQLException {
+        SMTP email = new SMTP();
+        email.setId(rs.getInt("id"));
         email.setName(rs.getString("UNAME"));
         email.setEmail(rs.getString("EMAIL"));
         email.setPassword(rs.getString("PASSWORD"));
@@ -803,5 +925,68 @@ public class AgendaDAO implements iAgendaDAO {
         aptGroup.setColor(rs.getString("COLOR"));
         return aptGroup;
     }
+      
+    /*
+    * Helper methods used for Next/Prev for all the forms.
+    * Finding the min and max of all the beans, so that the program cannot 
+    * proceed to next/prev if there is no approriate record to go with it.
+    */
+    @Override
+    public int maxApts() throws SQLException {
+        List<Appointment> apts = new ArrayList<>();
+        apts = this.findAllAppointments();
+        return apts.size()+1;
+    }
+    @Override
+    public int minApts() throws SQLException {
+        List<Appointment> apts = new ArrayList<>();
+        apts = this.findAllAppointments();
+        return apts.get(0).getId()-1;
+    }
+    @Override
+    public int maxAptGrps() throws SQLException {
+        List<AppointmentGroup> apts = new ArrayList<>();
+        apts = this.findAllAppointmentGroups();
+        return apts.size()+1;
+    }
+    @Override
+    public int minAptGrps() throws SQLException {
+        List<AppointmentGroup> apts = new ArrayList<>();
+        apts = this.findAllAppointmentGroups();
+        return apts.get(0).getGroupNumber()-1;
+    }
+    @Override
+    public int maxEmails() throws SQLException {
+        List<SMTP> emails = new ArrayList<>();
+        emails = this.findAllEmails();
+        return emails.size()+1;   
+    }
+    
+    @Override
+    public int minEmails() throws SQLException {
+        List<SMTP> emails = new ArrayList<>();
+        emails = this.findAllEmails();
+        return emails.get(0).getId()-1;
+    }
+    /**
+     * Accessing AgendaDB credientials. 
+     * I put this in here because most of the classes that call the database
+     * include this class, thus easier to call method here than create a new method
+     * in every single class that needs db credientials.
+     * @return 
+     */
+    @Override
+    public Properties getDBcredits(){
+        Properties dbCreds = new Properties();
+        try {
+        FileInputStream in = new FileInputStream("src/main/resources/dbCredits.properties");
+        dbCreds.load(in);
+        in.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+        return dbCreds;
+    }
+    
 
 } // end of AgendaDAO

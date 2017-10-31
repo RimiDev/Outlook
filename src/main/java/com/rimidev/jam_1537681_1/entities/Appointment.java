@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.rimidev.jam_1537681_1.entities;
 
-import static java.lang.Boolean.*;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.*;
 
 /**
- *
- * @author Max
+ * Appointment bean used to identify all the appointments in the program.
+ * @author Maxime Lacasse
+ * @version 1.5
  */
 public class Appointment {
 
@@ -61,8 +52,6 @@ public class Appointment {
 
     /**
      * Simple setters and getters
-     *
-     * @return
      */
     public final int getId() {
         return id.get();
@@ -135,7 +124,15 @@ public class Appointment {
     public void setAlarm(boolean alarm) {
         this.alarm.set(alarm);
     }
-
+    public final String getStartTimeTime(){
+       String sTime = String.valueOf(this.startTime);
+        return sTime.substring(12,15);
+    }
+    public final String getEndTimeTime(){
+        String eTime = String.valueOf(this.endTime);
+        return eTime.substring(12,15);       
+    }
+        
     //binding
     public final IntegerProperty idProperty() {
         return id;
@@ -172,7 +169,9 @@ public class Appointment {
     public final BooleanProperty alarmProperty() {
         return alarm;
     }
+    
 
+    //Hash
     @Override
     public int hashCode() {
         int hash = 7;
@@ -187,7 +186,7 @@ public class Appointment {
         hash = 47 * hash + (this.alarm.get() ? 1 : 0);
         return hash;
     }
-
+    //equals
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -230,6 +229,7 @@ public class Appointment {
         return true;
     }
 
+    //Simple toString.
     @Override
     public String toString() {
         return "Appointment{" + "id=" + id + ", title=" + title + ", location=" + location + ", startTime=" + startTime + ", endTime=" + endTime + ", details=" + details + ", wholeDay=" + wholeDay + ", appointmentGroup=" + appointmentGroup + ", alarm=" + alarm + '}';

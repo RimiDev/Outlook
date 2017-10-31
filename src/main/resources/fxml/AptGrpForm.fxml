@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<DialogPane fx:id="aptGrpDialog" headerText="%AptGrpTitle" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rimidev.jam_1537681_1.controllers.AptGrpFormController">
+    <content>
+<GridPane prefHeight="254.0" prefWidth="460.0">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="105.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.0" minWidth="10.0" prefWidth="344.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="209.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="216.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="236.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="217.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TextField fx:id="GroupNumber" editable="false" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="20.0" right="30.0" />
+         </GridPane.margin></TextField>
+      <TextField fx:id="GroupName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="20.0" right="30.0" />
+         </GridPane.margin></TextField>
+      <HBox alignment="CENTER" prefHeight="62.0" prefWidth="444.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onPrevious" prefWidth="90.0" text="%Previous" />
+            <Button mnemonicParsing="false" onAction="#onSave" prefWidth="90.0" text="%Save" />
+            <Button mnemonicParsing="false" onAction="#onClear" prefWidth="90.0" text="%Clear" />
+            <Button mnemonicParsing="false" onAction="#onNext" prefWidth="90.0" text="%Next" />
+            <Button mnemonicParsing="false" onAction="#onDelete" prefWidth="90.0" text="%Delete" />
+            <Button mnemonicParsing="false" onAction="#onExit" prefWidth="90.0" text="%Exit" />
+         </children>
+         <GridPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </GridPane.margin>
+      </HBox>
+      <Label text="%GroupNumber">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label text="%GroupName" GridPane.rowIndex="1">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label text="%Color" GridPane.rowIndex="2">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label fx:id="valid" prefHeight="17.0" prefWidth="114.0" textFill="RED" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets bottom="60.0" left="90.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="Color" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="20.0" right="30.0" />
+         </GridPane.margin>
+      </TextField>
+   </children>
+</GridPane>
+    </content>
+</DialogPane>

@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.rimidev</groupId>
   <artifactId>jam_1537681_1</artifactId>
-  <name>JAM_1537681_1.2</name>
-  <version>1.2</version>
+  <name>JAM_1537681_1.5</name>
+  <version>1.5</version>
   <description>This is the ultimate Java Agenda Manager System that will
-    set up appointments to keep the user updated on if they have appointments
-    that they have in the near future or of that they missed.</description>
+        set up appointments to keep the user updated on if they have appointments
+        that they have in the near future or of that they missed.</description>
   <developers>
     <developer>
       <id>1537681</id>

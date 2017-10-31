@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<DialogPane fx:id="emailDialog" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rimidev.jam_1537681_1.controllers.EmailFormController">
+    <content>
+<GridPane prefHeight="520.0" prefWidth="502.0">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="465.0" minWidth="10.0" prefWidth="402.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="%Email" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="%Name" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="%Password" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="%URL" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="%Port" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </Label>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnSpan="2" GridPane.rowIndex="9">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onPrevious" prefWidth="90.0" text="%Previous" />
+            <Button mnemonicParsing="false" onAction="#onSave" prefWidth="90.0" text="%Save" />
+            <Button mnemonicParsing="false" onAction="#onClear" prefWidth="90.0" text="%Clear" />
+            <Button mnemonicParsing="false" onAction="#onNext" prefWidth="90.0" text="%Next" />
+            <Button mnemonicParsing="false" onAction="#onDelete" prefWidth="90.0" text="%Delete" />
+            <Button fx:id="exit" mnemonicParsing="false" onAction="#onExit" prefWidth="90.0" text="%Exit" />
+         </children>
+         <GridPane.margin>
+            <Insets left="15.0" right="15.0" />
+         </GridPane.margin>
+      </HBox>
+      <Label text="%DefaultUser" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="%Reminder" GridPane.rowIndex="8">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="valid" prefHeight="17.0" prefWidth="161.0" textFill="RED" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="110.0" top="30.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="Name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="15.0" right="25.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="Email" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets left="15.0" right="25.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="Password" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="15.0" right="25.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="URL" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="15.0" right="25.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="Port" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="15.0" right="25.0" />
+         </GridPane.margin>
+      </TextField>
+      <RadioButton fx:id="DUyes" mnemonicParsing="false" text="%Yes" GridPane.columnIndex="1" GridPane.rowIndex="7">
+          <toggleGroup>
+            <ToggleGroup fx:id="Default" />
+         </toggleGroup>
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </RadioButton>
+      <RadioButton fx:id="DUno" mnemonicParsing="false" text="%No" toggleGroup="$Default" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <padding>
+            <Insets left="130.0" />
+         </padding>
+      </RadioButton>
+      <RadioButton fx:id="Ryes" mnemonicParsing="false" text="%Yes" GridPane.columnIndex="1" GridPane.rowIndex="8">
+         <toggleGroup>
+            <ToggleGroup fx:id="Reminder" />
+         </toggleGroup>
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </RadioButton>
+      <RadioButton fx:id="Rno" mnemonicParsing="false" text="%No" toggleGroup="$Reminder" GridPane.columnIndex="1" GridPane.rowIndex="8">
+         <GridPane.margin>
+            <Insets left="130.0" />
+         </GridPane.margin>
+      </RadioButton>
+      <Label text="%Id" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="Id" editable="false" text="-1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="15.0" right="25.0" />
+         </GridPane.margin>
+      </TextField>
+      
+   </children>
+</GridPane>
+    </content>
+</DialogPane>
